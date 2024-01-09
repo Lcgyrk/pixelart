@@ -36,3 +36,21 @@ body{
     border-radius: 25%;
     background-color: rgba(0, 236, 20, 0.349);
 }
+
+#module{
+    border: 3px black solid;
+    height: 720px;
+    width: 720px;
+    
+}
+
+#row{
+    width: 720px;
+    height: calc(720/16)px;
+}
+
+#row div{
+    width: calc(720/16)px;
+    height: 100%;
+
+}
