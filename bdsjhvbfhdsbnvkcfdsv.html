@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .maze {
+            display: grid;
+            grid-template-columns: repeat(20, 25px);
+            grid-template-rows: repeat(20, 25px);
+        }
+
+        .cell {
+            width: 25px;
+            height: 25px;
+            border: 1px solid black;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #player {
+            width: 25px;
+            height: 25px;
+            background-color: blue;
+            position: absolute;
+        }
+
+        .finish {
+            background-color: green;
+        }
+
+        .wall {
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+
+<div class="maze" id="maze"></div>
+
+<script>
+    const maze = document.getElementById('maze');
+    const player = document.createElement('div');
+    const finishCell = document.createElement('div');
+    const cells = [];
+
+    let playerX = 0;
+    let playerY = 0;
+
+    for (let i = 0; i < 20; i++) {
+        for (let j = 0; j < 20; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            maze.appendChild(cell);
+            cells.push(cell);
+        }
+    }
+
+    generateRandomWalls();
+
+    cells[0].appendChild(player);
+    cells[cells.length - 1].classList.add('finish');
+
+    updatePlayerPosition();
+
+    document.addEventListener('keydown', function (event) {
+        movePlayer(event.key);
+    });
+
+    function movePlayer(key) {
+        const step = 1;
+        let newPosition;
+
+        switch (key) {
+            case 'ArrowUp':
+                newPosition = getNewPosition(playerX, playerY - step);
+                break;
+            case 'ArrowDown':
+                newPosition = getNewPosition(playerX, playerY + step);
+                break;
+            case 'ArrowLeft':
+                newPosition = getNewPosition(playerX - step, playerY);
+                break;
+            case 'ArrowRight':
+                newPosition = getNewPosition(playerX + step, playerY);
+                break;
+        }
+
+        if (newPosition && !cells[newPosition.y * 20 + newPosition.x].classList.contains('wall')) {
+            playerX = newPosition.x;
+            playerY = newPosition.y;
+            updatePlayerPosition();
+        }
+
+        checkWinCondition();
+    }
+</script>
+
+</body>
+</html>
