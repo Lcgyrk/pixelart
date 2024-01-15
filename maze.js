@@ -77,10 +77,10 @@ function checkWinCondition() {
 
     if (playerX === finishCellCol && playerY === finishCellRow) {
         const restartGame = confirm('KICSIT AZÉRT ÜSSED\nAHOGY ILLIK');
-        let wins = 0;
+        let BP = document.querySelector('.banner1');
+        BP.style.opacity = 1;
 
         if (restartGame) {
-            wins++;
             resetGame();
         }
     }
@@ -89,14 +89,6 @@ function checkWinCondition() {
 function resetGame() {
     playerX = 0;
     playerY = 0;
-    if (wins > 0){
-        let BP = document.querySelector('.banner1');
-        BP.style.opacity = 1;
-    }
-    if (wins > 1){
-        let SLO = document.querySelector('.banner2');
-        SLO.style.opacity = 1;
-    }
     generateRandomWalls();
     updatePlayerPosition();
 }
